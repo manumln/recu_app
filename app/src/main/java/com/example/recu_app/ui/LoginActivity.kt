@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Inicio de sesión fallido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Credenciales incorrectas o usuario no registrado", Toast.LENGTH_SHORT).show()
             }
         }
         registerbtn.setOnClickListener {

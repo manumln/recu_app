@@ -14,7 +14,4 @@ object UserService {
         RepositoryObject.addUser(user)
     }
 
-    fun getAllUsers(): List<User> {
-        return RepositoryObject.getAllUsers()
-    }
 }
