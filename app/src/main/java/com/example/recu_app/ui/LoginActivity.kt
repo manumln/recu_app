@@ -4,32 +4,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.recu_app.R
-import com.example.recu_app.domain.UserRepository
 import com.example.recu_app.domain.models.User
-import com.example.recu_app.domain.usecase.UserUseCase
 import com.example.recu_app.ui.viewmodel.LoginViewModel
 import com.google.android.material.textfield.TextInputEditText
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+
+    private val loginViewModel: LoginViewModel by viewModels()
 
     private lateinit var usernameText: TextInputEditText
     private lateinit var passwordText: TextInputEditText
     private lateinit var loginbtn: Button
     private lateinit var registerbtn: Button
-    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        val userRepository = UserRepository()
-        val userUseCase = UserUseCase(userRepository)
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java).apply {
-            setUserUseCase(userUseCase)
-        }
 
         usernameText = findViewById(R.id.usernameEditText)
         passwordText = findViewById(R.id.passwordEditText)
@@ -63,6 +58,3 @@ class LoginActivity : AppCompatActivity() {
         dialog.show(supportFragmentManager, "RegisterDialog")
     }
 }
-
-
-
