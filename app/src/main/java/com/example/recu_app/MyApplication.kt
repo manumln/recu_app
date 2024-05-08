@@ -1,9 +1,7 @@
-package com.example.recu_app;
+package com.example.recu_app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MyApplication : Application() {
-
-}
+class MyApplication : Application()

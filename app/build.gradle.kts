@@ -2,12 +2,16 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id ("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
     namespace = "com.example.recu_app"
     compileSdk = 34
+
+    kapt {
+        correctErrorTypes = true
+    }
 
     defaultConfig {
         applicationId = "com.example.recu_app"
@@ -45,6 +49,10 @@ android {
     buildFeatures {
         compose = true
         viewBinding = true
+        dataBinding = true
+    }
+    viewBinding {
+        enable = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -66,6 +74,10 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.compose.ui:ui:1.6.7")
     implementation("androidx.compose.material:material:1.6.7")
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+
+
 }
