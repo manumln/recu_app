@@ -1,8 +1,5 @@
 package com.example.recu_app.domain.users.models
 
-/*
-Nuestra lista de usuarios.
- */
 class ListUsers private constructor(
 
 ){

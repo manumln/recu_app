@@ -3,11 +3,13 @@ package com.example.recu_app.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.recu_app.domain.alerts.models.Alert
+import com.example.recu_app.domain.alerts.models.ListAlerts
 
 class DetailsAlertViewModel : ViewModel() {
-    val alertLiveData = MutableLiveData<Alert>()
+    var alertLiveData = MutableLiveData<Alert>()  //Para notificar que ya he recuperado la alerta.
 
-    fun setAlert(alert: Alert) {
-        alertLiveData.value = alert
+    fun devAlertForPos(pos: Int): Alert {
+        return ListAlerts.list.alerts[pos]
     }
+
 }

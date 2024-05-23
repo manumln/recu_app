@@ -11,6 +11,7 @@ object UserDataBaseSingleton {
     lateinit var userDao : UserDao
     lateinit var alertsDao : AlertDao
 
+    //Creo una instancia de Room
     fun init(context: Context){
         synchronized(this){
             if (database == null){

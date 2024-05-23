@@ -8,8 +8,8 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.recu_app.databinding.ActivityLoginBinding
 import com.example.recu_app.domain.users.models.User
-import com.example.recu_app.ui.viewmodel.users.UserViewModel
 import com.example.recu_app.ui.users.dialogs.DialogRegisterUser
+import com.example.srodenas.example_with_catalogs.ui.viewmodel.users.UserViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

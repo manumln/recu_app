@@ -25,16 +25,13 @@ interface AlertDao {
     @Insert
     suspend fun insertAlert(alert: AlertEntity)
 
-    @Query("DELETE FROM alerts WHERE id = :alertId")
-    suspend fun deleteAlertById(alertId: Int)
-
-    @Query("SELECT * FROM alerts WHERE userId = :userId")
+    @Query("SELECT * FROM tblalerts WHERE userid = :userId")
     suspend fun getAlertsForUser(userId: Int): List<AlertEntity>
 
-    @Query("SELECT * FROM alerts WHERE id = :alertId")
+    @Query("SELECT * FROM tblalerts WHERE id = :alertId")
     suspend fun getAlertById(alertId: Int): AlertEntity?
 
-    // Nuevo método para obtener todas las alertas
-    @Query("SELECT * FROM alerts")
-    suspend fun getAllAlerts(): List<AlertEntity>
+    @Query("DELETE FROM tblalerts WHERE id = :alertId")
+    suspend fun deleteAlertById(alertId: Int)
+
 }

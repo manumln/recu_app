@@ -5,7 +5,6 @@ import java.time.LocalDate
 data class Alert(
     val id: Int = 0,
     val userId: Int,
-    val name: String,
     val textShort: String,
     val message: String,
     val alertDate: LocalDate

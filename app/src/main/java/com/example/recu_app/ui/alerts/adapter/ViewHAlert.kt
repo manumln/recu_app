@@ -5,24 +5,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recu_app.databinding.ItemAlertBinding
 import com.example.recu_app.domain.alerts.models.Alert
 
-class ViewHAlert(
-    view: View,
-    val onDelete: (Int) -> Unit,
-    val onDetails: (Int) -> Unit
-) : RecyclerView.ViewHolder(view) {
+class ViewHAlert (view: View,
+                  val onDelete: (Int) -> Unit,
+                  val onDetails: (Int) -> Unit
 
-    private val binding = ItemAlertBinding.bind(view)
+) : RecyclerView.ViewHolder(view){
 
-    fun renderize(alert: Alert, position: Int) {
-        binding.txtNameAlert.text = alert.name
-        binding.txtDescription.text = alert.textShort
+    lateinit var binding: ItemAlertBinding
+    init {
+        binding = ItemAlertBinding.bind(view)
+    }
 
-        binding.btnDeleteAlert.setOnClickListener {
+
+    fun renderize(alert: Alert, position:Int){
+        /*
+        Debemos de setear los campos
+         */
+        binding.btnDeleteAlert.setOnClickListener{
             onDelete(position)
         }
 
-        binding.btnDescriptionAlert.setOnClickListener {
+        binding.btnDescriptionAlert.setOnClickListener{
             onDetails(position)
         }
+
     }
 }

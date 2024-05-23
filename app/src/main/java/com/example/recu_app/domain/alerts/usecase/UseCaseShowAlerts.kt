@@ -1,11 +1,10 @@
 package com.example.recu_app.domain.alerts.usecase
 
-import android.provider.ContactsContract
-import com.example.recu_app.domain.alerts.models.Alert
 import com.example.recu_app.domain.alerts.models.RepositoryAlerts
+import com.example.recu_app.domain.users.models.Profile
 
-class UseCaseShowAlerts(private val repositoryAlerts: RepositoryAlerts) {
-    suspend fun showAlerts(userId: Int): List<Alert> {
-        return repositoryAlerts.getAlertsForUser(userId).toMutableList()
-    }
+class UseCaseShowAlerts (val repositoryAlerts: RepositoryAlerts) {
+    suspend fun showAlerts() = repositoryAlerts.showAllAlerts(Profile.profile.user.id).toMutableList()
+
+
 }

@@ -7,7 +7,7 @@ class Profile private constructor(){
 
     companion object{
         val profile: Profile by lazy {
-             Profile()  //creo el objeto singleton
+            Profile()  //creo el objeto singleton
         }
     }
 

@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
-import java.util.Date
 
 @Entity(tableName = "tblusers")
 data class UserEntity (
@@ -15,14 +14,15 @@ data class UserEntity (
     @ColumnInfo(name = "password") val password: String,
     @ColumnInfo(name = "phone") val phone: String,
     @ColumnInfo(name = "image") val imag: String
-    )
+)
 
-@Entity(tableName = "alerts")
+@Entity(tableName = "tblalerts")
 data class AlertEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    val userId: Int,
-    val name: String,
-    val textShort: String,
-    val message: String,
-    val alertDate: LocalDate
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id") val id: Int = 0,
+    @ColumnInfo(name = "userid") val userId: Int, // Clave foránea que hace referencia al ID del usuario
+    @ColumnInfo(name = "textshort") val textShort: String,
+    @ColumnInfo(name = "message") val message: String,
+    @ColumnInfo(name = "alertDate") val alertDate: LocalDate  //para almacenar la fecha
+
 )
