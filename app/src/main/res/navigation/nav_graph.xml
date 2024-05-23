@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navg.xml"
+    app:startDestination="@id/alertsFragment">
+
+    <fragment
+        android:id="@+id/alertsFragment"
+        android:name="com.example.recu_app.ui.alerts.AlertsFragment"
+        android:label="fragment_alerts"
+        tools:layout="@layout/fragment_alerts" >
+        <action
+            android:id="@+id/action_alertsFragment_to_detailsAlertFragment"
+            app:destination="@id/detailsAlertFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.example.recu_app.ui.users.UsersFragment"
+        android:label="fragment_users"
+        tools:layout="@layout/fragment_users" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.recu_app.ui.perfil.PerfilFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_perfil" />
+    <fragment
+        android:id="@+id/detailsAlertFragment"
+        android:name="com.example.recu_app.ui.alerts.DetailsAlertFragment"
+        android:label="fragment_details_alert"
+        tools:layout="@layout/fragment_details_alert" >
+        <argument
+            android:name="num"
+            app:argType="integer" />
+    </fragment>
+</navigation>

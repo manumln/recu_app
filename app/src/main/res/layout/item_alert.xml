@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/txt_name_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alert Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/date_alert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alert Date"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"/>
+
+        <TextView
+            android:id="@+id/txt_description_short"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Short Description"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/txt_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Detailed Description"
+            android:textSize="14sp"
+            android:paddingBottom="8dp"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <ImageView
+                android:id="@+id/btn_description_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="View Description"
+                android:src="@drawable/baseline_details_alert_24"
+                android:background="?attr/selectableItemBackground"/>
+
+            <ImageView
+                android:id="@+id/btn_delete_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Delete"
+                android:src="@drawable/baseline_delete_alert_24"
+                android:background="?attr/selectableItemBackground"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

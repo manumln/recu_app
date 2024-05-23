@@ -30,11 +30,11 @@
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:textColor="@color/white"
             android:textColorLink="#FFFFFF"
             android:inputType="text"
             android:textSize="16sp" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -51,11 +51,11 @@
             android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:textColor="@color/white"
             android:textColorLink="#FFFFFF"
             android:inputType="text"
             android:textSize="16sp" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -72,18 +72,39 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:textColor="@color/white"
             android:textColorLink="#FFFFFF"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phoneInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailInputLayout"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Phone Number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/white"
+            android:textColorLink="#FFFFFF"
+            android:inputType="phone"
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailInputLayout"
+        android:layout_below="@id/phoneInputLayout"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -93,11 +114,11 @@
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="monospace"            android:textColor="@color/white"
+            android:fontFamily="monospace"
+            android:textColor="@color/white"
             android:textColorLink="#FFFFFF"
             android:inputType="textPassword"
             android:textSize="16sp" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -125,9 +146,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_gradient"
-        android:text="Cancel"
         android:fontFamily="monospace"
+        android:text="Cancel"
         android:textColor="@color/white"
         android:textSize="18sp" />
-
 </RelativeLayout>

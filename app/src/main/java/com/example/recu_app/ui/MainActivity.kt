@@ -5,15 +5,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.recu_app.R
 import com.example.recu_app.ui.acercade.AcercaDeFragment
-import com.example.recu_app.ui.alertas.AlertasFragment
+import com.example.recu_app.ui.alerts.AlertsFragment
 import com.example.recu_app.ui.perfil.PerfilFragment
-import com.example.recu_app.ui.usuariosregistrados.UsuariosRegistradosFragment
+import com.example.recu_app.ui.users.UsersFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.widget.Toolbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,23 +28,22 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_alertas -> {
-                    replaceFragment(AlertasFragment())
+                R.id.alertasFragment -> {
+                    replaceFragment(AlertsFragment())
                     true
                 }
-                R.id.action_usuarios -> {
-                    replaceFragment(UsuariosRegistradosFragment())
+                R.id.usuariosFragment -> {
+                    replaceFragment(UsersFragment())
                     true
                 }
-                R.id.action_perfil -> {
+                R.id.profileFragment -> {
                     replaceFragment(PerfilFragment())
                     true
                 }
                 else -> false
             }
         }
-
-        replaceFragment(AlertasFragment())
+        replaceFragment(AlertsFragment())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             R.id.action_logout -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                finish() // Finalizar la actividad actual
                 return true
             }
         }

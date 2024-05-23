@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/text_new_alerta_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nueva Alerta"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <EditText
+        android:id="@+id/edit_alerta_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:inputType="text"
+        android:paddingBottom="8dp" />
+
+    <EditText
+        android:id="@+id/edit_alerta_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:paddingBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_add_alerta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Añadir Alerta" />
+
+</LinearLayout>

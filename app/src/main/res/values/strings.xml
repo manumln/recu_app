@@ -15,4 +15,11 @@
     <string name="title_alertas">Alertas</string>
     <string name="title_usuarios">Usuarios</string>
     <string name="title_perfil">Perfil</string>
+    <string name="pref_user_file">nombre_de_archivo_preferido</string>
+    <string name="pref_user_id">nombre_de_id_de_usuario_preferido</string>
+    <string name="pref_user_name">nombre_de_nombre_de_usuario_preferido</string>
+    <string name="pref_user_email">nombre_de_email_de_usuario_preferido</string>
+    <string name="default_user_name">nombre_de_usuario_predeterminado</string>
+    <string name="default_user_email">email_de_usuario_predeterminado</string>
+
 </resources>

@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -36,27 +37,29 @@ android {
         }
     }
 
-    viewBinding{
+    viewBinding {
         enable = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
         viewBinding = true
         dataBinding = true
     }
-    viewBinding {
-        enable = true
-    }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -67,17 +70,20 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.activity.ktx)
     implementation(libs.material)
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.fragment:fragment-ktx:1.7.0")
-    implementation("androidx.activity:activity-ktx:1.9.0")
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.compose.ui:ui:1.6.7")
-    implementation("androidx.compose.material:material:1.6.7")
-    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.material)
+    implementation(libs.hilt.android)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.hilt.android.compiler)
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
 
 }

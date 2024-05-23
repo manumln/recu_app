@@ -1,60 +1,64 @@
 package com.example.recu_app.ui
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.example.recu_app.R
-import com.example.recu_app.domain.models.User
-import com.example.recu_app.ui.viewmodel.LoginViewModel
-import com.google.android.material.textfield.TextInputEditText
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.lifecycle.Observer
+import com.example.recu_app.databinding.ActivityLoginBinding
+import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.ui.viewmodel.users.UserViewModel
+import com.example.recu_app.ui.users.dialogs.DialogRegisterUser
 
-@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-
-    private val loginViewModel: LoginViewModel by viewModels()
-
-    private lateinit var usernameText: TextInputEditText
-    private lateinit var passwordText: TextInputEditText
-    private lateinit var loginbtn: Button
-    private lateinit var registerbtn: Button
+    private lateinit var binding: ActivityLoginBinding
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        registerLiveData()
+        initEvent()
+        userViewModel.setContext(this)
+    }
 
-        usernameText = findViewById(R.id.usernameEditText)
-        passwordText = findViewById(R.id.passwordEditText)
-        loginbtn = findViewById(R.id.loginButton)
-        registerbtn = findViewById(R.id.registerFragmentButton)
+    private fun initEvent() {
+        binding.loginButton.setOnClickListener { view ->
+            userViewModel.isLogin(binding.usernameEditText.text.toString(), binding.passwordEditText.text.toString())
+        }
 
-        loginbtn.setOnClickListener {
-            val enteredUsername = usernameText.text.toString()
-            val enteredPassword = passwordText.text.toString()
+        binding.registerFragmentButton.setOnClickListener {
+            val dialog = DialogRegisterUser { user ->
+                okOnRegisterUser(user)
+            }
+            dialog.show(this.supportFragmentManager, "Registro de nuevo usuario")
+        }
 
-            val loggedIn = loginViewModel.login(enteredUsername, enteredPassword)
-            if (loggedIn) {
+    }
+
+    private fun okOnRegisterUser(user: User) {
+        userViewModel.register(user)
+    }
+
+    private fun registerLiveData() {
+        userViewModel.isLogginPreferencesLiveData.observe(this, Observer { isLoggin ->
+            if (isLoggin) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Credenciales incorrectas o usuario no registrado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error en el logueo", Toast.LENGTH_LONG).show()
             }
-        }
-        registerbtn.setOnClickListener {
-            showRegisterDialog()
-        }
+        })
+
+        userViewModel.registrationStatusLiveData.observe(this, Observer { register ->
+            if (register) {
+                Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Usuario No registrado", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
-    private fun showRegisterDialog() {
-        val dialog = RegisterDialogFragment()
-        dialog.setRegisterCallback { name, user, password, email ->
-            val newUser = User(user, email, password)
-            loginViewModel.registerUser(newUser)
-            Toast.makeText(this@LoginActivity, "Usuario registrado: $name", Toast.LENGTH_SHORT).show()
-        }
-        dialog.show(supportFragmentManager, "RegisterDialog")
-    }
 }
