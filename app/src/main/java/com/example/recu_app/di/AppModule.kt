@@ -1,43 +1,49 @@
 package com.example.recu_app.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import com.example.recu_app.data.TaskDao
-import com.example.recu_app.data.TaskDatabase
-import com.example.recu_app.data.TaskRepository
-import com.example.recu_app.data.TaskRepositoryImpl
+import com.example.recu_app.data.alerts.database.dao.AlertsDao
+import com.example.recu_app.data.alerts.database.AlertsDatabase
+import com.example.recu_app.utils.Migrations.MIGRATION_2_3
+import com.example.recu_app.domain.alerts.models.AlertsRepository
+import com.example.recu_app.domain.alerts.models.AlertsRepositoryImpl
+import com.example.recu_app.utils.dispatchers.DefaultDispatchers
+import com.example.recu_app.utils.dispatchers.DispatchersProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
     @Singleton
-    fun providesDatabase(app: Application): TaskDatabase {
-        return Room.databaseBuilder(
-            app,
-            TaskDatabase::class.java,
-            "task_db"
-        ).fallbackToDestructiveMigration()
-            .build()
+    @Provides
+    fun provideAlertDatabase(
+        @ApplicationContext context: Context,
+    ) = Room.databaseBuilder(
+        context,
+        AlertsDatabase::class.java,
+        "alerts.db"
+    ).addMigrations(MIGRATION_2_3)
+        .build()
+
+    @Singleton
+    @Provides
+    fun provideAlertDao(database: AlertsDatabase) = database.dao()
+
+    @Singleton
+    @Provides
+    fun provideAlertRepository(dao: AlertsDao): AlertsRepository {
+        return AlertsRepositoryImpl(dao)
     }
 
-    @Provides
     @Singleton
-    fun providesTaskDao(db: TaskDatabase): TaskDao {
-        return db.taskDao()
-    }
-
     @Provides
-    @Singleton
-    fun provideTaskRepository(taskDao: TaskDao): TaskRepository {
-        return TaskRepositoryImpl(taskDao)
+    fun provideDispatchersProvider(): DispatchersProvider {
+        return DefaultDispatchers()
     }
-
 }
-

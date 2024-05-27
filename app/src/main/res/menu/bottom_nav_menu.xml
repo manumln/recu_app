@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/campana"
+        android:title="Alertas" />
+    <item
+        android:id="@+id/usuarios"
+        android:icon="@drawable/usuarios"
+        android:title="Usuarios" />
+    <item
+        android:id="@+id/perfil"
+        android:icon="@drawable/usuario"
+        android:title="Perfil" />
+</menu>

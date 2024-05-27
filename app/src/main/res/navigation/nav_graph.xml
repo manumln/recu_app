@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/TaskFragment">
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/allAlertsFragment">
 
     <fragment
-        android:id="@+id/TaskFragment"
-        android:name="com.example.recu_app.ui.alerts.tasks.TasksFragment"
-        android:label="Tasks"
-        tools:layout="@layout/fragment_tasks">
-
+        android:id="@+id/allAlertsFragment"
+        android:name="com.example.recu_app.ui.view.fragments.alerts.AllAlertsFragment"
+        android:label="AllAlertsFragment">
         <action
-            android:id="@+id/action_TaskFragment_to_AddEditTaskFragment"
-            app:destination="@id/AddEditTaskFragment" />
+            android:id="@+id/action_allAlertsFragment_to_addAlertFragment"
+            app:destination="@id/addAlertFragment" />
     </fragment>
     <fragment
-        android:id="@+id/AddEditTaskFragment"
-        android:name="com.example.recu_app.ui.alerts.addedittask.AddEditFragment"
-        android:label=""
-        tools:layout="@layout/fragment_add_edit">
+        android:id="@+id/addAlertFragment"
+        android:name="com.example.recu_app.ui.view.fragments.alerts.AddAlertFragment"
+        android:label="AddAlertFragment">
+        <action
+            android:id="@+id/action_addAlertFragment_to_allAlertsFragment"
+            app:destination="@id/allAlertsFragment"
+            app:popUpTo="@id/allAlertsFragment"
+            app:popUpToInclusive="true" />
         <argument
-            android:name="task"
+            android:name="alert"
             android:defaultValue="@null"
-            app:argType="com.absut.tasksapp.data.Task"
+            app:argType="com.example.recu_app.data.alerts.database.entities.AlertEntity"
             app:nullable="true" />
     </fragment>
 </navigation>
