@@ -7,9 +7,6 @@ import com.example.recu_app.data.alerts.database.AlertsDatabase
 import com.example.recu_app.utils.Migrations.MIGRATION_2_3
 import com.example.recu_app.domain.alerts.models.AlertsRepository
 import com.example.recu_app.domain.alerts.models.AlertsRepositoryImpl
-import com.example.recu_app.domain.alerts.usecase.DeleteAlertUseCase
-import com.example.recu_app.domain.alerts.usecase.GetAllAlertsUseCase
-import com.example.recu_app.domain.alerts.usecase.SaveAlertUseCase
 import com.example.recu_app.utils.dispatchers.DefaultDispatchers
 import com.example.recu_app.utils.dispatchers.DispatchersProvider
 import dagger.Module
@@ -27,7 +24,7 @@ object AppModule {
     @Provides
     fun provideAlertDatabase(
         @ApplicationContext context: Context,
-    ): AlertsDatabase = Room.databaseBuilder(
+    ) = Room.databaseBuilder(
         context,
         AlertsDatabase::class.java,
         "alerts.db"
@@ -36,7 +33,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAlertDao(database: AlertsDatabase): AlertsDao = database.dao()
+    fun provideAlertDao(database: AlertsDatabase) = database.dao()
 
     @Singleton
     @Provides
@@ -48,20 +45,5 @@ object AppModule {
     @Provides
     fun provideDispatchersProvider(): DispatchersProvider {
         return DefaultDispatchers()
-    }
-
-    @Provides
-    fun provideSaveAlertUseCase(repository: AlertsRepository): SaveAlertUseCase {
-        return SaveAlertUseCase(repository)
-    }
-
-    @Provides
-    fun provideDeleteAlertUseCase(repository: AlertsRepository): DeleteAlertUseCase {
-        return DeleteAlertUseCase(repository)
-    }
-
-    @Provides
-    fun provideGetAllAlertsUseCase(repository: AlertsRepository): GetAllAlertsUseCase {
-        return GetAllAlertsUseCase(repository)
     }
 }
