@@ -13,6 +13,8 @@
 
     <color name="primary">@color/dark</color>
     <color name="secondary">@color/blue</color>
+    <color name="textPrimary">#000000</color>
+    <color name="backgroundColor">#F5F5F5</color>
 
     <color name="text_color">@color/dark</color>
     <color name="fab_bg">@color/blue</color>
