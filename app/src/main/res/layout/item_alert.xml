@@ -9,14 +9,14 @@
     android:layout_marginEnd="8dp"
     android:outlineAmbientShadowColor="@color/purple_700"
     android:outlineSpotShadowColor="@color/purple_500"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     tools:targetApi="p">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/background"
+        android:background="#0DFF0000"
         android:padding="8dp">
 
         <com.google.android.material.textview.MaterialTextView
@@ -26,7 +26,7 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/poppins_semi_bold"
             android:gravity="center_vertical"
-            android:textColor="@color/text_color"
+            android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toStartOf="@id/iv_delete"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_medium"
             android:gravity="center_vertical"
-            android:textColor="@color/text_color"
+            android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
