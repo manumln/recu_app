@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.recu_app.R
 import com.example.recu_app.data.users.database.UserDatabase
-import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.domain.users.models.UserEntity
 import com.example.recu_app.ui.viewmodel.users.LoginViewModel
 
 class SignupActivity : AppCompatActivity() {
@@ -57,7 +57,7 @@ class SignupActivity : AppCompatActivity() {
                     if (isUserExist) {
                         Toast.makeText(this, "Usuario ya registrado", Toast.LENGTH_LONG).show()
                     } else {
-                        val user = User().apply {
+                        val userEntity = UserEntity().apply {
                             name = etFullname.text.toString()
                             username = etUsername.text.toString()
                             password = etPassword.text.toString()
@@ -65,7 +65,7 @@ class SignupActivity : AppCompatActivity() {
                             phone = etPhone.text.toString()
                         }
 
-                        UserDatabase.getDatabase(this)?.daoAccess()?.insertUserData(user)
+                        UserDatabase.getDatabase(this)?.daoAccess()?.insertUserData(userEntity)
                         Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_LONG).show()
                     }
                 })

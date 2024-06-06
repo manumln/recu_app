@@ -11,7 +11,7 @@ import com.example.recu_app.data.alerts.database.entities.AlertEntity
 import com.example.recu_app.data.users.database.converters.CoroutineUtils.executeInCoroutine
 import com.example.recu_app.data.users.database.converters.SnackBarUtils.showSnackBar
 import com.example.recu_app.databinding.FragmentAddAlertBinding
-import com.example.recu_app.ui.viewmodel.alerts.AddAlertsViewModel
+import com.example.recu_app.ui.viewmodel.alerts.AlertsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class AddAlertFragment : Fragment(R.layout.fragment_add_alert) {
     private val binding get() = _binding!!
     private val args: AddAlertFragmentArgs by navArgs()
     private var key: Int? = null
-    private val viewModel by viewModels<AddAlertsViewModel>()
+    private val viewModel by viewModels<AlertsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +56,7 @@ class AddAlertFragment : Fragment(R.layout.fragment_add_alert) {
                     description = description,
                     deadLine = deadLine
                 )
-                saveAlert(anAlert)
+                saveOrUpdateAlert(anAlert)
                 requireContext().showSnackBar(binding.root, "Alerta creada")
                 findNavController().navigate(R.id.action_addAlertFragment_to_allAlertsFragment)
             } else {
@@ -94,9 +94,13 @@ class AddAlertFragment : Fragment(R.layout.fragment_add_alert) {
         return Pair(true, message)
     }
 
-    private fun saveAlert(alert: AlertEntity) {
+    private fun saveOrUpdateAlert(alert: AlertEntity) {
         executeInCoroutine {
-            viewModel.saveAlert(alert)
+            if (alert.id == null) {
+                viewModel.createOrUpdateAlert(alert)
+            } else {
+                viewModel.createOrUpdateAlert(alert)
+            }
         }
     }
 

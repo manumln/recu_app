@@ -10,13 +10,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recu_app.R
-import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.domain.users.models.UserEntity
 
-class UserAdapter(private val context: Context, private var userList: List<User>) :
+class UserAdapter(private val context: Context, private var userEntityList: List<UserEntity>) :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    fun setUsers(users: List<User>) {
-        this.userList = users
+    fun setUsers(userEntities: List<UserEntity>) {
+        this.userEntityList = userEntities
         notifyDataSetChanged()
     }
 
@@ -26,7 +26,7 @@ class UserAdapter(private val context: Context, private var userList: List<User>
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val user = userList[position]
+        val user = userEntityList[position]
         holder.tvUsername.text = user.username
         holder.tvName.text = user.name
         holder.tvEmail.text = user.email
@@ -46,7 +46,7 @@ class UserAdapter(private val context: Context, private var userList: List<User>
     }
 
     override fun getItemCount(): Int {
-        return userList.size
+        return userEntityList.size
     }
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

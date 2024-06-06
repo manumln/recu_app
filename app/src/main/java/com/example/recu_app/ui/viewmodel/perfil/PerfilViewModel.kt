@@ -4,14 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.recu_app.domain.users.models.UserDetailsRepository
-import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.domain.users.models.UserEntity
 
 class PerfilViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: UserDetailsRepository = UserDetailsRepository(application)
-    private val allUserData: LiveData<List<User>>? = repository.getAllData()
+    private val allUserDataEntity: LiveData<List<UserEntity>>? = repository.getAllData()
 
-    fun getAllUserData(): LiveData<List<User>>? {
-        return allUserData
+    fun getAllUserData(): LiveData<List<UserEntity>>? {
+        return allUserDataEntity
     }
 }

@@ -4,17 +4,17 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.recu_app.domain.users.models.UserDetailsRepository
-import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.domain.users.models.UserEntity
 
 class UserViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: UserDetailsRepository = UserDetailsRepository(application)
-    private val allUsers: LiveData<List<User>> = repository.getAllData()!!
+    private val allUsers: LiveData<List<UserEntity>> = repository.getAllData()!!
 
-    fun getAllUsers(): LiveData<List<User>> {
+    fun getAllUsers(): LiveData<List<UserEntity>> {
         return allUsers
     }
 
-    fun insert(user: User) {
-        repository.insertData(user)
+    fun insert(userEntity: UserEntity) {
+        repository.insertData(userEntity)
     }
 }

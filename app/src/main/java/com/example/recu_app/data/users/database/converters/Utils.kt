@@ -13,10 +13,6 @@ import androidx.core.content.ContextCompat
 import com.example.recu_app.R
 import com.google.android.material.snackbar.Snackbar
 
-object Constants {
-    const val DATE_FORMAT = "E, d MMM yyyy"
-}
-
 object CoroutineUtils {
     fun Fragment.executeInCoroutine(
         lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
@@ -27,14 +23,6 @@ object CoroutineUtils {
                 block()
             }
         }
-    }
-}
-
-object DateTimeUtils {
-    @SuppressLint("SimpleDateFormat")
-    fun String.toTime(): Long? {
-        val format = SimpleDateFormat(Constants.DATE_FORMAT)
-        return format.parse(this)?.time
     }
 }
 

@@ -5,15 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recu_app.data.alerts.database.entities.AlertEntity
-import com.example.recu_app.domain.alerts.models.AlertsRepository
 import com.example.recu_app.data.users.database.converters.Resource
+import com.example.recu_app.domain.alerts.models.AlertsRepository
 import com.example.recu_app.utils.dispatchers.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
-class AllAlertsViewModel @Inject constructor(
+class AlertsViewModel @Inject constructor(
     private val repository: AlertsRepository,
     private val dispatchers: DispatchersProvider,
 ) : ViewModel() {
@@ -27,6 +28,12 @@ class AllAlertsViewModel @Inject constructor(
             repository.getAllAlerts().collect {
                 _alerts.value = Resource.Success(it)
             }
+        }
+    }
+
+    fun createOrUpdateAlert(alert: AlertEntity) {
+        viewModelScope.launch(dispatchers.main) {
+            repository.saveAlert(alert)
         }
     }
 

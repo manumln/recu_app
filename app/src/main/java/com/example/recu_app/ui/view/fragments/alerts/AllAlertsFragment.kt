@@ -15,8 +15,7 @@ import com.example.recu_app.data.users.database.converters.CoroutineUtils.execut
 import com.example.recu_app.data.users.database.converters.Resource
 import com.example.recu_app.data.users.database.converters.SnackBarUtils.showSnackBar
 import com.example.recu_app.databinding.FragmentAllAlertsBinding
-import com.example.recu_app.ui.viewmodel.alerts.AddAlertsViewModel
-import com.example.recu_app.ui.viewmodel.alerts.AllAlertsViewModel
+import com.example.recu_app.ui.viewmodel.alerts.AlertsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +23,7 @@ class AllAlertsFragment : Fragment(R.layout.fragment_all_alerts) {
 
     private var _binding: FragmentAllAlertsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<AllAlertsViewModel>()
-    private val addAlertsViewModel by viewModels<AddAlertsViewModel>()
+    private val viewModel by viewModels<AlertsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -90,7 +88,7 @@ class AllAlertsFragment : Fragment(R.layout.fragment_all_alerts) {
 
     private fun undoDelete(alert: AlertEntity) {
         executeInCoroutine {
-            addAlertsViewModel.saveAlert(alert)
+            viewModel.createOrUpdateAlert(alert)
         }
     }
 

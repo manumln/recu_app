@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.widget.TextView
 import com.example.recu_app.R
-import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.domain.users.models.UserEntity
 import com.example.recu_app.ui.viewmodel.perfil.PerfilViewModel
 
 class PerfilFragment : Fragment() {
@@ -42,10 +42,10 @@ class PerfilFragment : Fragment() {
         return view
     }
 
-    private fun displayUserData(user: User) {
-        tvName.text = user.name
-        tvUsername.text = user.username
-        tvEmail.text = user.email
-        tvPhone.text = user.phone
+    private fun displayUserData(userEntity: UserEntity) {
+        tvName.text = userEntity.name
+        tvUsername.text = userEntity.username
+        tvEmail.text = userEntity.email
+        tvPhone.text = userEntity.phone
     }
 }

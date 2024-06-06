@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.domain.users.models.UserEntity
 
 @Dao
 interface UserDao {
     @Insert
-    fun insertUserData(user: User)
+    fun insertUserData(userEntity: UserEntity)
 
-    @Query("select * from User")
-    fun getDetails(): LiveData<List<User>>
+    @Query("select * from UserEntity")
+    fun getDetails(): LiveData<List<UserEntity>>
 
-    @Query("DELETE FROM User WHERE id = :id")
+    @Query("DELETE FROM UserEntity WHERE id = :id")
     fun deleteByUserId(id: Long)
 }

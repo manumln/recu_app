@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import com.example.recu_app.data.users.database.dao.UserDao
 import androidx.room.RoomDatabase
-import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.domain.users.models.UserEntity
 import androidx.room.Room
 
-@Database(entities = [User::class], version = 3, exportSchema = false)
+@Database(entities = [UserEntity::class], version = 3, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 
     abstract fun daoAccess(): UserDao

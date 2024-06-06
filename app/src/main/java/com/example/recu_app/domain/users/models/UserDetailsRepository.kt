@@ -9,7 +9,7 @@ import com.example.recu_app.data.users.database.UserDatabase
 class UserDetailsRepository(application: Application) {
 
     private var userDao: UserDao? = null
-    private var allData: LiveData<List<User>>? = null
+    private var allData: LiveData<List<UserEntity>>? = null
 
     init {
         val db = UserDatabase.getDatabase(application)
@@ -17,20 +17,18 @@ class UserDetailsRepository(application: Application) {
         allData = userDao?.getDetails()
 
     }
-    fun getAllData(): LiveData<List<User>>? {
+    fun getAllData(): LiveData<List<UserEntity>>? {
         return allData
     }
-    fun insertData(data: User) {
+    fun insertData(data: UserEntity) {
         userDao?.let { LoginInsertion(it).execute(data) }
     }
 
     private class LoginInsertion(private val userDao: UserDao) :
-        AsyncTask<User, Void, Void>() {
-        override fun doInBackground(vararg data: User): Void? {
+        AsyncTask<UserEntity, Void, Void>() {
+        override fun doInBackground(vararg data: UserEntity): Void? {
             userDao.insertUserData(data[0])
             return null
-
         }
-
     }
 }
