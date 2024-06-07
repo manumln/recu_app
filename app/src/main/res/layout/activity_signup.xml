@@ -125,7 +125,7 @@
             android:textColor="@color/white"
             android:background="@drawable/button_gradient"
             android:backgroundTint="@color/primary"
-            style="@style/MaterialAlertDialog.Material3"/>
+            style="@style/Widget.MaterialComponents.Button"/>
 
         <Button
             android:id="@+id/btn_login"
@@ -137,7 +137,7 @@
             android:textColor="@color/white"
             android:background="@drawable/button_gradient"
             android:backgroundTint="@color/primary"
-            style="@style/MaterialAlertDialog.Material3"/>
+            style="@style/Widget.MaterialComponents.Button"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
