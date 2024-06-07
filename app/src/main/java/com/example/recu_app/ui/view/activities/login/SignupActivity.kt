@@ -12,12 +12,14 @@ import com.example.recu_app.R
 import com.example.recu_app.data.users.database.UserDatabase
 import com.example.recu_app.domain.users.models.UserEntity
 import com.example.recu_app.ui.viewmodel.users.LoginViewModel
+import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var etFullname: EditText
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
+    private lateinit var etConfirmPassword: EditText
     private lateinit var etEmail: EditText
     private lateinit var etPhone: EditText
     private lateinit var btnLogin: Button
@@ -30,6 +32,7 @@ class SignupActivity : AppCompatActivity() {
         etFullname = findViewById(R.id.et_fullname)
         etUsername = findViewById(R.id.et_username)
         etPassword = findViewById(R.id.et_password)
+        etConfirmPassword = findViewById(R.id.et_confirm_password)
         etEmail = findViewById(R.id.et_email)
         etPhone = findViewById(R.id.et_phone)
         btnLogin = findViewById(R.id.btn_login)
@@ -74,29 +77,25 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun validation(): Boolean {
-        if (etFullname.text.isNullOrEmpty()) {
-            Toast.makeText(this, "Introduce nombre", Toast.LENGTH_LONG).show()
+        if (etFullname.text.isNullOrEmpty() || etUsername.text.isNullOrEmpty() ||
+            etPassword.text.isNullOrEmpty() || etConfirmPassword.text.isNullOrEmpty() ||
+            etEmail.text.isNullOrEmpty() || etPhone.text.isNullOrEmpty()
+        ) {
+            Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_LONG).show()
             return false
         }
 
-        if (etUsername.text.isNullOrEmpty()) {
-            Toast.makeText(this, "Introduce usuario", Toast.LENGTH_LONG).show()
+        if (etPassword.text.toString() != etConfirmPassword.text.toString()) {
+            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show()
             return false
         }
 
-        if (etPassword.text.isNullOrEmpty()) {
-            Toast.makeText(this, "Introduce contraseña", Toast.LENGTH_LONG).show()
+        val emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+        if (!emailPattern.matcher(etEmail.text.toString()).matches()) {
+            Toast.makeText(this, "Ingrese un correo electrónico válido", Toast.LENGTH_LONG).show()
             return false
         }
 
-        if (etEmail.text.isNullOrEmpty()) {
-            Toast.makeText(this, "Introduce email", Toast.LENGTH_LONG).show()
-            return false
-        }
-        if (etPhone.text.isNullOrEmpty()) {
-            Toast.makeText(this, "Introduce telefono", Toast.LENGTH_LONG).show()
-            return false
-        }
         return true
     }
 }

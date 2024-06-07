@@ -28,8 +28,9 @@ object AppModule {
         context,
         AlertsDatabase::class.java,
         "alerts.db"
-    ).addMigrations(MIGRATION_2_3)
+    ).fallbackToDestructiveMigration()
         .build()
+
 
     @Singleton
     @Provides
