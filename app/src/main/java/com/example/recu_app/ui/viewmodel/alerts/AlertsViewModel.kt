@@ -10,7 +10,6 @@ import com.example.recu_app.domain.alerts.models.AlertsRepository
 import com.example.recu_app.utils.dispatchers.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
