@@ -3,8 +3,8 @@ package com.example.recu_app.domain.users.models
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import com.example.recu_app.data.users.database.dao.UserDao
 import com.example.recu_app.data.users.database.UserDatabase
+import com.example.recu_app.data.users.database.dao.UserDao
 
 class UserDetailsRepository(application: Application) {
 
@@ -17,11 +17,17 @@ class UserDetailsRepository(application: Application) {
         allData = userDao?.getDetails()
 
     }
+
     fun getAllData(): LiveData<List<UserEntity>>? {
         return allData
     }
+
     fun insertData(data: UserEntity) {
         userDao?.let { LoginInsertion(it).execute(data) }
+    }
+
+    fun getUserById(userId: Int): LiveData<UserEntity>? {
+        return userDao?.getUserById(userId)
     }
 
     private class LoginInsertion(private val userDao: UserDao) :

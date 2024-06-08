@@ -1,13 +1,14 @@
 package com.example.recu_app.ui.view.fragments.perfil
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import android.widget.TextView
 import com.example.recu_app.R
 import com.example.recu_app.domain.users.models.UserEntity
 import com.example.recu_app.ui.viewmodel.perfil.PerfilViewModel
@@ -31,16 +32,22 @@ class PerfilFragment : Fragment() {
         tvEmail = view.findViewById(R.id.tv_email)
         tvPhone = view.findViewById(R.id.tv_phone)
 
+        val sharedPreferences = requireActivity().getSharedPreferences("AlertsPrefs", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("userId", -1) // Obtener el ID del usuario autenticado
+
         perfilViewModel = ViewModelProvider(this).get(PerfilViewModel::class.java)
-        perfilViewModel.getAllUserData()?.observe(viewLifecycleOwner, Observer { userList ->
-            if (userList.isNotEmpty()) {
-                val user = userList[0]
-                displayUserData(user)
+        perfilViewModel.init(userId) // Inicializar perfilViewModel con el userId
+
+        perfilViewModel.getUserById()?.observe(viewLifecycleOwner, Observer { userEntity ->
+            userEntity?.let {
+                displayUserData(userEntity)
             }
         })
 
         return view
     }
+
+
 
     private fun displayUserData(userEntity: UserEntity) {
         tvName.text = userEntity.name

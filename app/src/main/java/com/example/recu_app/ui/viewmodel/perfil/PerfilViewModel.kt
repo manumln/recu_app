@@ -9,9 +9,13 @@ import com.example.recu_app.domain.users.models.UserEntity
 class PerfilViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: UserDetailsRepository = UserDetailsRepository(application)
-    private val allUserDataEntity: LiveData<List<UserEntity>>? = repository.getAllData()
 
     fun getAllUserData(): LiveData<List<UserEntity>>? {
-        return allUserDataEntity
+        return repository.getAllData()
     }
+
+    fun getUserById(userId: Int): LiveData<UserEntity>? {
+        return repository.getUserById(userId)
+    }
+
 }

@@ -11,9 +11,9 @@ interface UserDao {
     @Insert
     fun insertUserData(userEntity: UserEntity)
 
-    @Query("select * from UserEntity")
+    @Query("SELECT * FROM UserEntity")
     fun getDetails(): LiveData<List<UserEntity>>
 
-    @Query("DELETE FROM UserEntity WHERE id = :id")
-    fun deleteByUserId(id: Long)
+    @Query("SELECT * FROM UserEntity WHERE id = :userId")
+    fun getUserById(userId: Int): LiveData<UserEntity>
 }

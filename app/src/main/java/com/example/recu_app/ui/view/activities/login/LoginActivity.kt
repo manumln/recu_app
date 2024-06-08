@@ -55,8 +55,10 @@ class LoginActivity : AppCompatActivity() {
                     for (user in userList) {
                         if (user.username == etUsername.text.toString()) {
                             if (user.password == etPassword.text.toString()) {
+                                val userId = user.id 
                                 val editor = sharedPreferences.edit()
                                 editor.putBoolean("isLoggedIn", true)
+                                editor.putInt("userId", userId)
                                 editor.apply()
 
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
