@@ -33,11 +33,10 @@ class PerfilFragment : Fragment() {
         tvPhone = view.findViewById(R.id.tv_phone)
 
         val sharedPreferences = requireActivity().getSharedPreferences("AlertsPrefs", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getInt("userId", -1) // Obtener el ID del usuario autenticado
+        val userId = sharedPreferences.getInt("userId", -1)
 
         perfilViewModel = ViewModelProvider(this).get(PerfilViewModel::class.java)
-        perfilViewModel.init(userId) // Inicializar perfilViewModel con el userId
-
+        perfilViewModel.init(userId)
         perfilViewModel.getUserById()?.observe(viewLifecycleOwner, Observer { userEntity ->
             userEntity?.let {
                 displayUserData(userEntity)
@@ -46,8 +45,6 @@ class PerfilFragment : Fragment() {
 
         return view
     }
-
-
 
     private fun displayUserData(userEntity: UserEntity) {
         tvName.text = userEntity.name
