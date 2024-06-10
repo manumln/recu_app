@@ -13,8 +13,8 @@ import com.example.recu_app.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.recu_app.ui.view.fragments.users.UsuariosFragment
 import com.example.recu_app.ui.view.activities.login.LoginActivity
-import com.example.recu_app.ui.view.fragments.perfil.PerfilFragment
 import com.example.recu_app.ui.view.fragments.alerts.AlertsFragment
+import com.example.recu_app.ui.view.fragments.perfil.PerfilFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

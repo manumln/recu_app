@@ -14,7 +14,7 @@
         android:layout_height="85dp"
         android:layout_marginTop="15dp"
         android:contentDescription="LOGO"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/alerta"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

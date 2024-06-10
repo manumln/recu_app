@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
@@ -17,20 +17,19 @@
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.MyApp.ActionBar"
-            app:layout_constraintBottom_toTopOf="@id/et_title_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_navigation_back"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="Añadir alerta" />
 
+        <!-- Título -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_title_container"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/my_toolbar">
@@ -38,62 +37,66 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_alerttitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_height="67dp"
                 android:fontFamily="@font/poppins_medium"
                 android:hint="Título"
                 tools:ignore="HardcodedText" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Descripción -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/et_desc_container"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_title_container">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="start"
                 android:hint="Descripción"
+                android:minLines="14"
+                android:inputType="textMultiLine"
                 tools:ignore="HardcodedText" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Botón de fecha -->
         <Button
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="Seleccionar fecha"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_desc_container"
+            app:layout_constraintTop_toBottomOf="@id/et_desc_container"
             tools:ignore="HardcodedText" />
 
+        <!-- Texto de la fecha seleccionada -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/deadline"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
             android:maxLines="2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/date"
-            app:layout_constraintTop_toBottomOf="@+id/et_desc_container"
+            app:layout_constraintStart_toEndOf="@id/date"
+            app:layout_constraintTop_toBottomOf="@id/et_desc_container"
             tools:text="Sunday, 13 February, 2022" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Botón flotante para guardar -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_save_alert"
         android:layout_width="wrap_content"
@@ -104,4 +107,5 @@
         app:contentDescription="Guardar tarea"
         app:srcCompat="@drawable/ic_baseline_done"
         app:tint="@color/fab_icon_tint" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

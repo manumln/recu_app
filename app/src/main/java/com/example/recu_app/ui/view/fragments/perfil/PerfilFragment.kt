@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ class PerfilFragment : Fragment() {
     private lateinit var tvUsername: TextView
     private lateinit var tvEmail: TextView
     private lateinit var tvPhone: TextView
+    private lateinit var ivProfilePicture: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +33,7 @@ class PerfilFragment : Fragment() {
         tvUsername = view.findViewById(R.id.tv_username)
         tvEmail = view.findViewById(R.id.tv_email)
         tvPhone = view.findViewById(R.id.tv_phone)
+        ivProfilePicture = view.findViewById(R.id.iv_profile_picture)
 
         val sharedPreferences = requireActivity().getSharedPreferences("AlertsPrefs", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getInt("userId", -1)
@@ -51,5 +54,11 @@ class PerfilFragment : Fragment() {
         tvUsername.text = userEntity.username
         tvEmail.text = userEntity.email
         tvPhone.text = userEntity.phone
+
+        val randomProfileNumber = (1..5).random()
+
+        val profileImageId = resources.getIdentifier("profile$randomProfileNumber", "drawable", requireActivity().packageName)
+
+        ivProfilePicture.setImageResource(profileImageId)
     }
 }
