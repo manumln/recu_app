@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".ui.view.activities.login.SignupActivity">
+    tools:context=".ui.view.activities.login.RegisterActivity">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -30,21 +30,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_logo">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_fullname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nombre"
-                android:background="@drawable/rounded_corner_view"
-                android:textSize="14sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
+            android:text="REGISTER"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="normal|bold" />
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +48,7 @@
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="User"
+                android:hint="Usuario"
                 android:background="@drawable/rounded_corner_view"
                 android:textSize="14sp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -103,22 +96,7 @@
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
-                android:background="@drawable/rounded_corner_view"
-                android:textSize="14sp"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Telefono"
+                android:hint="Correo electrónico"
                 android:background="@drawable/rounded_corner_view"
                 android:textSize="14sp"/>
         </com.google.android.material.textfield.TextInputLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.recu_app.ui.view.fragments.alerts.AlertsFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_alerts" />
+    <fragment
+        android:id="@+id/usuariosFragment"
+        android:name="com.example.recu_app.ui.view.fragments.users.UsuariosFragment"
+        android:label="Usuarios"
+        tools:layout="@layout/fragment_users" />
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.example.recu_app.ui.view.fragments.perfil.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
+</navigation>

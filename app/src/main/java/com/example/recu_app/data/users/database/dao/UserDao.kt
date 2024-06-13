@@ -1,19 +1,22 @@
 package com.example.recu_app.data.users.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.recu_app.domain.users.models.UserEntity
+import com.example.recu_app.data.users.database.entities.UserEntity
 
 @Dao
 interface UserDao {
-    @Insert
-    fun insertUserData(userEntity: UserEntity)
 
-    @Query("SELECT * FROM UserEntity")
-    fun getDetails(): LiveData<List<UserEntity>>
+    @Query("SELECT * FROM tblusers WHERE email = :email and password =:password")
+    suspend fun login(email: String, password: String): UserEntity
 
-    @Query("SELECT * FROM UserEntity WHERE id = :userId")
-    fun getUserById(userId: Int): LiveData<UserEntity>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUser(vararg user : UserEntity)
+
+    @Query("SELECT * FROM tblusers")
+    suspend fun getAllUsers(): List<UserEntity>
 }

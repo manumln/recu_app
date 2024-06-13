@@ -1,43 +1,39 @@
 package com.example.recu_app.ui.view.activities
 
-import android.content.Context
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.recu_app.R
 import com.example.recu_app.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.example.recu_app.ui.view.fragments.users.UsuariosFragment
 import com.example.recu_app.ui.view.activities.login.LoginActivity
+import com.example.recu_app.ui.view.activities.login.SharedPreferencesManager
 import com.example.recu_app.ui.view.fragments.alerts.AlertsFragment
 import com.example.recu_app.ui.view.fragments.perfil.PerfilFragment
+import com.example.recu_app.ui.view.fragments.users.UsuariosFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    companion object {
-        var isAnimatedRecyclerView: Boolean = false
-    }
-
     private lateinit var binding: ActivityMainBinding
-    private lateinit var bottomNav: BottomNavigationView
+    private val CALL_PHONE_REQUEST_CODE = 1
+    private var phoneNumberToCall: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        isAnimatedRecyclerView = true
 
-        val toolbar: Toolbar = findViewById(R.id.my_toolbar)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.myToolbar.myToolbar)
 
-        bottomNav = findViewById(R.id.bottomNav)
-        bottomNav.setOnItemSelectedListener { item ->
+        binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
                     loadFragment(AlertsFragment())
@@ -63,6 +59,43 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun makeCall(phoneNumber: String) {
+        phoneNumberToCall = phoneNumber
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.CALL_PHONE), CALL_PHONE_REQUEST_CODE)
+        } else {
+            startCall(phoneNumber)
+        }
+    }
+
+    private fun startCall(phoneNumber: String) {
+        val callIntent = Intent(Intent.ACTION_CALL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        }
+        startActivity(callIntent)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            CALL_PHONE_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    phoneNumberToCall?.let {
+                        startCall(it)
+                    }
+                } else {
+                    // Permiso denegado, manejar según sea necesario
+                }
+            }
+            else -> {
+                // Otro código de solicitud, manejar si es necesario
+            }
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
@@ -79,15 +112,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-
-        val sharedPreferences = getSharedPreferences("AlertsPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("isLoggedIn", false)
-        editor.apply()
-
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
+        val sharedPreferencesManager = SharedPreferencesManager(this)
+        sharedPreferencesManager.clearUserData()
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 }

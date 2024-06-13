@@ -16,17 +16,6 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold"
-            android:paddingBottom="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"/>
-
-        <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,16 +32,6 @@
             android:text="Email"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:paddingBottom="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"/>
-
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:paddingBottom="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"/>
 
