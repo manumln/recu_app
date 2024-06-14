@@ -25,19 +25,28 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val CALL_PHONE_REQUEST_CODE = 1
-    private var phoneNumberToCall: String? = null
     private lateinit var prefs: SharedPreferences
+
+    private val CALL_PHONE_REQUEST_CODE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        prefs = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        prefs = getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
+        setupActionBar()
+        setupBottomNavigation()
+
+        loadDefaultFragment()
+    }
+
+    private fun setupActionBar() {
         setSupportActionBar(binding.myToolbar.myToolbar)
+    }
 
+    private fun setupBottomNavigation() {
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -55,6 +64,9 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private fun loadDefaultFragment() {
         loadFragment(AlertsFragment())
     }
 
@@ -65,15 +77,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun makeCall(phoneNumber: String) {
-        phoneNumberToCall = phoneNumber
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), CALL_PHONE_REQUEST_CODE)
         } else {
-            startCall(phoneNumber)
+            initiateCall(phoneNumber)
         }
     }
 
-    private fun startCall(phoneNumber: String) {
+    private fun initiateCall(phoneNumber: String) {
         val callIntent = Intent(Intent.ACTION_CALL).apply {
             data = Uri.parse("tel:$phoneNumber")
         }
@@ -83,7 +94,6 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CALL_PHONE_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            phoneNumberToCall?.let { startCall(it) }
         }
     }
 
@@ -96,8 +106,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_logout -> {
                 clearUserData()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                navigateToLogin()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -112,5 +121,10 @@ class MainActivity : AppCompatActivity() {
             remove("phone")
             apply()
         }
+    }
+
+    private fun navigateToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 }

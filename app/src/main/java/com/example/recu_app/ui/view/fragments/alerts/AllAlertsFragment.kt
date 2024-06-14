@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recu_app.R
 import com.example.recu_app.ui.view.fragments.alerts.adapter.AlertsAdapter
 import com.example.recu_app.data.alerts.database.entities.AlertEntity
-import com.example.recu_app.data.users.database.converters.CoroutineUtils.executeInCoroutine
-import com.example.recu_app.data.users.database.converters.Resource
-import com.example.recu_app.data.users.database.converters.SnackBarUtils.showSnackBar
+import com.example.recu_app.utils.converters.CoroutineUtils.executeInCoroutine
+import com.example.recu_app.utils.converters.Resource
+import com.example.recu_app.utils.converters.SnackBarUtils.showSnackBar
 import com.example.recu_app.databinding.FragmentAllAlertsBinding
 import com.example.recu_app.ui.viewmodel.alerts.AlertsViewModel
 import dagger.hilt.android.AndroidEntryPoint

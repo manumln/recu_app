@@ -8,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.recu_app.R
 import com.example.recu_app.data.alerts.database.entities.AlertEntity
-import com.example.recu_app.data.users.database.converters.CoroutineUtils.executeInCoroutine
-import com.example.recu_app.data.users.database.converters.SnackBarUtils.showSnackBar
+import com.example.recu_app.utils.converters.CoroutineUtils.executeInCoroutine
+import com.example.recu_app.utils.converters.SnackBarUtils.showSnackBar
 import com.example.recu_app.databinding.FragmentAddAlertBinding
 import com.example.recu_app.ui.viewmodel.alerts.AlertsViewModel
 import dagger.hilt.android.AndroidEntryPoint

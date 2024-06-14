@@ -3,38 +3,36 @@ package com.example.recu_app.ui.viewmodel.perfil
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recu_app.domain.users.models.User
 
-class PerfilViewModel(app: Application) : AndroidViewModel(app) {
+class PerfilViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val userLiveData = MutableLiveData<User?>()
-    val userData: LiveData<User?> get() = userLiveData
+    private val userProfileLiveData = MutableLiveData<User?>()
+    val userProfile: LiveData<User?> get() = userProfileLiveData
 
-    private val prefs: SharedPreferences = app.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = application.getSharedPreferences("user_data", Context.MODE_PRIVATE)
 
     init {
-        fetchUserData()
+        fetchUserProfile()
     }
 
-    private fun fetchUserData() {
-        val userEmail = prefs.getString("email", null)
-        val userName = prefs.getString("name", null)
-        val userPhone = prefs.getString("phone", null)
-
+    private fun fetchUserProfile() {
+        val userEmail = sharedPreferences.getString("email", null)
+        val userName = sharedPreferences.getString("name", null)
+        val userPhone = sharedPreferences.getString("phone", null)
 
         if (!userEmail.isNullOrBlank() && !userName.isNullOrBlank()) {
-            val user = User().apply {
-                email = userEmail
-                nombre = userName
+            val user = User(
+                email = userEmail,
+                nombre = userName,
                 telefono = userPhone
-            }
-            userLiveData.value = user
+            )
+            userProfileLiveData.value = user
         } else {
-            userLiveData.value = null
+            userProfileLiveData.value = null
         }
     }
 }

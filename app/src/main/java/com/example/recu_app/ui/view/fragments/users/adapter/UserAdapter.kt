@@ -10,41 +10,56 @@ import com.example.recu_app.domain.users.models.User
 import com.example.recu_app.ui.view.activities.MainActivity
 
 class UserAdapter(
-    var listUsers: MutableList<User>,
-    val onDetails: (Int) -> Unit
-) : RecyclerView.Adapter<UserAdapter.ViewHUser>() {
+    var userList: MutableList<User>,
+    private val onDetailsClicked: (Int) -> Unit
+) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHUser {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemUserBinding.inflate(layoutInflater, parent, false)
-        return ViewHUser(binding, onDetails)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemUserBinding.inflate(inflater, parent, false)
+        return UserViewHolder(binding, onDetailsClicked)
     }
 
-    override fun getItemCount(): Int = listUsers.size
-
-    override fun onBindViewHolder(holder: ViewHUser, position: Int) {
-        holder.renderize(listUsers[position], position)
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
+        holder.bind(userList[position])
     }
 
-    inner class ViewHUser(private val binding: ItemUserBinding, val onDetails: (Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount(): Int = userList.size
 
-        fun renderize(user: User, position: Int) {
-            binding.tvName.text = user.nombre
-            binding.tvEmail.text = user.email
+    inner class UserViewHolder(
+        private val binding: ItemUserBinding,
+        private val onDetailsClicked: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-            binding.btnEmail.setOnClickListener {
-                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:${user.email}")
-                    putExtra(Intent.EXTRA_SUBJECT, "Subject Here")
-                    putExtra(Intent.EXTRA_TEXT, "Body Here")
+        fun bind(user: User) {
+            binding.apply {
+                tvName.text = user.nombre ?: ""
+                tvEmail.text = user.email ?: ""
+
+                btnEmail.setOnClickListener {
+                    user.email?.let { email -> sendEmail(email) }
                 }
-                itemView.context.startActivity(emailIntent)
-            }
 
-            binding.btnCall.setOnClickListener {
-                val activity = it.context as? MainActivity
-                activity?.makeCall(user.id.toString())
+                btnCall.setOnClickListener {
+                    user.telefono?.let { phone -> initiateCall(phone) }
+                }
+
+                root.setOnClickListener {
+                    user.id?.let { id -> onDetailsClicked(id) }
+                }
             }
+        }
+
+        private fun sendEmail(email: String) {
+            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:$email")
+            }
+            itemView.context.startActivity(emailIntent)
+        }
+
+        private fun initiateCall(phoneNumber: String) {
+            val activity = itemView.context as? MainActivity
+            activity?.makeCall(phoneNumber)
         }
     }
 }

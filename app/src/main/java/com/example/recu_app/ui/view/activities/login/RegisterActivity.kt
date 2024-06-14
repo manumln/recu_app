@@ -25,14 +25,12 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Initialize views
         username = findViewById(R.id.et_username)
         password = findViewById(R.id.et_password)
         confirmPassword = findViewById(R.id.et_confirm_password)
         email = findViewById(R.id.et_email)
         telefono = findViewById(R.id.et_telefono)
 
-        // Register button click listener
         findViewById<Button>(R.id.btn_register).setOnClickListener {
             val usernameText = username.text.toString()
             val passwordText = password.text.toString()

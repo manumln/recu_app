@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recu_app.data.alerts.database.entities.AlertEntity
-import com.example.recu_app.data.users.database.converters.Resource
+import com.example.recu_app.utils.converters.Resource
 import com.example.recu_app.domain.alerts.models.AlertsRepository
 import com.example.recu_app.utils.dispatchers.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel

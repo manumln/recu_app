@@ -1,18 +1,19 @@
 package com.example.recu_app.ui.view.activities.login
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.recu_app.ui.view.activities.MainActivity
 import com.example.recu_app.R
 import com.example.recu_app.data.api.InstanceRetrofit
 import com.example.recu_app.data.users.database.network.UserInterfaceApi
 import com.example.recu_app.domain.users.models.Request.RequestLoginUser
-import com.example.recu_app.ui.view.activities.MainActivity
-import com.example.recu_app.utils.SharedPreferencesManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -20,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var usuario: EditText
     private lateinit var contraseña: EditText
-    private lateinit var sharedPreferencesManager: SharedPreferencesManager
+    private lateinit var prefs: SharedPreferences
     private lateinit var userAPI: UserInterfaceApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +30,10 @@ class LoginActivity : AppCompatActivity() {
 
         usuario = findViewById(R.id.et_username)
         contraseña = findViewById(R.id.et_password)
-        sharedPreferencesManager = SharedPreferencesManager(applicationContext)
+        prefs = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         userAPI = InstanceRetrofit.getUsers()
 
-        if (sharedPreferencesManager.getToken() != null) {
+        if (getToken() != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -77,12 +78,40 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun saveUserAndProceed(token: String, email: String, name: String, phone: String) {
-        sharedPreferencesManager.saveUserData(token, email, name, phone)
+        prefs.edit().apply {
+            putString("token", token)
+            putString("email", email)
+            putString("name", name)
+            putString("phone", phone)
+            apply()
+        }
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
+
+    private fun saveUserDetails(token: String, email: String, name: String, phone: String?) {
+        prefs.edit().apply {
+            putString("token", token)
+            putString("email", email)
+            putString("name", name)
+            putString("phone", phone)
+            apply()
+        }
+    }
+
     private fun showError(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun saveToken(token: String) {
+        prefs.edit().apply {
+            putString("token", token)
+            apply()
+        }
+    }
+
+    private fun getToken(): String? {
+        return prefs.getString("token", null)
     }
 }

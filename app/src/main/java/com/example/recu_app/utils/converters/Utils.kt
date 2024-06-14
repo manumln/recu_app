@@ -1,4 +1,4 @@
-package com.example.recu_app.data.users.database.converters
+package com.example.recu_app.utils.converters
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
