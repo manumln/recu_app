@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_corner_view"
-                android:hint="User"
+                android:hint="Email"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,30 +72,32 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_login"
-            style="@style/Widget.MaterialComponents.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/button_gradient"
-            android:backgroundTint="@color/primary"
-            android:text="Login"
-            android:onClick="iniciarLogin"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+        android:id="@+id/btn_login"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_gradient"
+        android:backgroundTint="@color/primary"
+        android:text="Login"
+        android:onClick="handleLogin"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
 
         <Button
             android:id="@+id/btn_register"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="iniciarRegistro"
+            android:onClick="handleRegistration"
             android:layout_marginTop="8dp"
             android:background="@drawable/button_gradient"
             android:backgroundTint="@color/primary"
             android:text="Register"
             android:textColor="@color/white"
             android:textSize="16sp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

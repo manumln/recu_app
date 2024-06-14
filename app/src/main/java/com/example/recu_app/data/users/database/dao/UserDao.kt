@@ -12,8 +12,6 @@ interface UserDao {
     @Query("SELECT * FROM tblusers WHERE email = :email and password =:password")
     suspend fun login(email: String, password: String): UserEntity
 
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(vararg user : UserEntity)
 

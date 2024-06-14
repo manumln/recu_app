@@ -8,21 +8,17 @@ class User {
     @Expose
     var id: Int? = null
 
-    @SerializedName("disponible")
-    @Expose
-    var disponible: Int? = null
-
     @SerializedName("email")
     @Expose
     var email: String? = null
 
+    @SerializedName("telefono")
+    @Expose
+    var telefono: String? = null
+
     @SerializedName("nombre")
     @Expose
     var nombre: String? = null
-
-    @SerializedName("imagen")
-    @Expose
-    var imagen: String? = null
 
     @SerializedName("token")
     @Expose

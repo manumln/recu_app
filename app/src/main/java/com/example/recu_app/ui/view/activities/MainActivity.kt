@@ -1,7 +1,9 @@
 package com.example.recu_app.ui.view.activities
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -14,7 +16,6 @@ import androidx.fragment.app.Fragment
 import com.example.recu_app.R
 import com.example.recu_app.databinding.ActivityMainBinding
 import com.example.recu_app.ui.view.activities.login.LoginActivity
-import com.example.recu_app.ui.view.activities.login.SharedPreferencesManager
 import com.example.recu_app.ui.view.fragments.alerts.AlertsFragment
 import com.example.recu_app.ui.view.fragments.perfil.PerfilFragment
 import com.example.recu_app.ui.view.fragments.users.UsuariosFragment
@@ -22,14 +23,18 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private val CALL_PHONE_REQUEST_CODE = 1
     private var phoneNumberToCall: String? = null
+    private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        prefs = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
 
         setSupportActionBar(binding.myToolbar.myToolbar)
 
@@ -61,10 +66,8 @@ class MainActivity : AppCompatActivity() {
 
     fun makeCall(phoneNumber: String) {
         phoneNumberToCall = phoneNumber
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
-            != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.CALL_PHONE), CALL_PHONE_REQUEST_CODE)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE), CALL_PHONE_REQUEST_CODE)
         } else {
             startCall(phoneNumber)
         }
@@ -77,22 +80,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(callIntent)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            CALL_PHONE_REQUEST_CODE -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    phoneNumberToCall?.let {
-                        startCall(it)
-                    }
-                } else {
-                    // Permiso denegado, manejar según sea necesario
-                }
-            }
-            else -> {
-                // Otro código de solicitud, manejar si es necesario
-            }
+        if (requestCode == CALL_PHONE_REQUEST_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            phoneNumberToCall?.let { startCall(it) }
         }
     }
 
@@ -104,17 +95,22 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_logout -> {
-                logout()
+                clearUserData()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun logout() {
-        val sharedPreferencesManager = SharedPreferencesManager(this)
-        sharedPreferencesManager.clearUserData()
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
+    private fun clearUserData() {
+        prefs.edit().apply {
+            remove("token")
+            remove("email")
+            remove("name")
+            remove("phone")
+            apply()
+        }
     }
 }

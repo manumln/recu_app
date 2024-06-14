@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recu_app.databinding.ItemUserBinding
 import com.example.recu_app.domain.users.models.User
+import com.example.recu_app.ui.view.activities.MainActivity
 
 class UserAdapter(
     var listUsers: MutableList<User>,
@@ -40,12 +41,9 @@ class UserAdapter(
                 itemView.context.startActivity(emailIntent)
             }
 
-            // Configurar el botón de llamada telefónica
             binding.btnCall.setOnClickListener {
-                val callIntent = Intent(Intent.ACTION_DIAL).apply {
-                    data = Uri.parse("tel:${user.id}")
-                }
-                itemView.context.startActivity(callIntent)
+                val activity = it.context as? MainActivity
+                activity?.makeCall(user.id.toString())
             }
         }
     }

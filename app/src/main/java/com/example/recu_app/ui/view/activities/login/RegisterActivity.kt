@@ -6,48 +6,78 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.recu_app.R
-import com.example.recu_app.domain.users.models.RequestRegisterUser
-import com.example.recu_app.domain.users.models.UserRegistrationListener
+import com.example.recu_app.data.api.InstanceRetrofit
+import com.example.recu_app.domain.users.models.Request.RequestRegisterUser
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var usuario: EditText
-    private lateinit var pass: EditText
-    private lateinit var confirmPass: EditText
+    private lateinit var username: EditText
+    private lateinit var password: EditText
+    private lateinit var confirmPassword: EditText
     private lateinit var email: EditText
+    private lateinit var telefono: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        usuario = findViewById(R.id.et_username)
-        pass = findViewById(R.id.et_password)
-        confirmPass = findViewById(R.id.et_confirm_password)
+        // Initialize views
+        username = findViewById(R.id.et_username)
+        password = findViewById(R.id.et_password)
+        confirmPassword = findViewById(R.id.et_confirm_password)
         email = findViewById(R.id.et_email)
+        telefono = findViewById(R.id.et_telefono)
 
-        val registerButton: Button = findViewById(R.id.btn_register)
-        registerButton.setOnClickListener {
-            val username = usuario.text.toString()
-            val password = pass.text.toString()
-            val confirmPassword = confirmPass.text.toString()
-            val userEmail = email.text.toString()
+        // Register button click listener
+        findViewById<Button>(R.id.btn_register).setOnClickListener {
+            val usernameText = username.text.toString()
+            val passwordText = password.text.toString()
+            val confirmPasswordText = confirmPassword.text.toString()
+            val emailText = email.text.toString()
 
-            if (password == confirmPassword) {
-                val registro = RequestRegisterUser().apply {
-                    nombre = username
-                    this.password = password
+            if (passwordText == confirmPasswordText) {
+                val registerUser = RequestRegisterUser().apply {
+                    nombre = usernameText
+                    this.password = passwordText
+                    this.email = emailText
                 }
-                val mListener = this as? UserRegistrationListener
-                mListener?.insertarUsuario(registro)
+                insertUser(registerUser)
             } else {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
             }
         }
 
-        val loginButton: Button = findViewById(R.id.btn_login)
-        loginButton.setOnClickListener {
+        findViewById<Button>(R.id.btn_login).setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun insertUser(registerUser: RequestRegisterUser?) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = InstanceRetrofit.getUsers().registro(registerUser)
+                if (response.isSuccessful) {
+                    runOnUiThread {
+                        Toast.makeText(this@RegisterActivity, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                        finish()
+                    }
+                } else {
+                    runOnUiThread {
+                        val errorMessage = response.errorBody()?.string()
+                        Toast.makeText(this@RegisterActivity, "Error en el registro del usuario: $errorMessage", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this@RegisterActivity, "Error de red: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }
